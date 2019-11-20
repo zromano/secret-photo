@@ -13,6 +13,10 @@
 		509633ED2384F513006924C0 /* secret_photo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 509633EB2384F513006924C0 /* secret_photo.xcdatamodeld */; };
 		509633EF2384F515006924C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 509633EE2384F515006924C0 /* Assets.xcassets */; };
 		509633F22384F515006924C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 509633F02384F515006924C0 /* LaunchScreen.storyboard */; };
+		509634052384FCAF006924C0 /* PasscodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509634002384FCAF006924C0 /* PasscodeController.swift */; };
+		509634062384FCAF006924C0 /* AlbumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509634012384FCAF006924C0 /* AlbumController.swift */; };
+		509634072384FCAF006924C0 /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509634022384FCAF006924C0 /* PhotoController.swift */; };
+		509634082384FCAF006924C0 /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509634042384FCAF006924C0 /* PasscodeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		509633EE2384F515006924C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		509633F12384F515006924C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		509633F32384F515006924C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		509634002384FCAF006924C0 /* PasscodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeController.swift; sourceTree = "<group>"; };
+		509634012384FCAF006924C0 /* AlbumController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumController.swift; sourceTree = "<group>"; };
+		509634022384FCAF006924C0 /* PhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
+		509634042384FCAF006924C0 /* PasscodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +64,8 @@
 		509633E32384F513006924C0 /* secret-photo */ = {
 			isa = PBXGroup;
 			children = (
+				509633FF2384FCAF006924C0 /* Controllers */,
+				509634032384FCAF006924C0 /* Views */,
 				509633E42384F513006924C0 /* AppDelegate.swift */,
 				509633E62384F513006924C0 /* ViewController.swift */,
 				509633E82384F513006924C0 /* Main.storyboard */,
@@ -65,6 +75,24 @@
 				509633EB2384F513006924C0 /* secret_photo.xcdatamodeld */,
 			);
 			path = "secret-photo";
+			sourceTree = "<group>";
+		};
+		509633FF2384FCAF006924C0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				509634002384FCAF006924C0 /* PasscodeController.swift */,
+				509634012384FCAF006924C0 /* AlbumController.swift */,
+				509634022384FCAF006924C0 /* PhotoController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		509634032384FCAF006924C0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				509634042384FCAF006924C0 /* PasscodeView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +166,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509634072384FCAF006924C0 /* PhotoController.swift in Sources */,
+				509634082384FCAF006924C0 /* PasscodeView.swift in Sources */,
 				509633E72384F513006924C0 /* ViewController.swift in Sources */,
+				509634062384FCAF006924C0 /* AlbumController.swift in Sources */,
+				509634052384FCAF006924C0 /* PasscodeController.swift in Sources */,
 				509633ED2384F513006924C0 /* secret_photo.xcdatamodeld in Sources */,
 				509633E52384F513006924C0 /* AppDelegate.swift in Sources */,
 			);
