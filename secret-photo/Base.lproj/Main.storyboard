@@ -18,18 +18,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZi-Wy-Odr">
-                                <rect key="frame" x="135" y="382" width="144" height="133"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <segue destination="lP1-d5-PRS" kind="show" identifier="showAlbumSegue" id="jpk-ET-5bX"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Secret Photos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qA-yl-WM4">
+                                <rect key="frame" x="0.0" y="44" width="414" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="2pN-IX-BRE">
+                                <rect key="frame" x="79" y="109" width="256" height="112"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-hS-6wY">
+                                <rect key="frame" x="10" y="246" width="394" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="8qA-yl-WM4" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="BdT-3V-gm2"/>
+                            <constraint firstItem="fQZ-hS-6wY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="-20" id="IBh-1C-0er"/>
+                            <constraint firstItem="fQZ-hS-6wY" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="P43-wI-h4X"/>
+                            <constraint firstItem="8qA-yl-WM4" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Sef-C3-hDr"/>
+                            <constraint firstItem="fQZ-hS-6wY" firstAttribute="top" secondItem="2pN-IX-BRE" secondAttribute="bottom" constant="25" id="WC4-3G-VCo"/>
+                            <constraint firstItem="2pN-IX-BRE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="b0U-iy-0hs"/>
+                            <constraint firstItem="2pN-IX-BRE" firstAttribute="top" secondItem="8qA-yl-WM4" secondAttribute="bottom" constant="24" id="gE2-vN-hbg"/>
+                            <constraint firstItem="2pN-IX-BRE" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.125" id="k1g-xM-Xmp"/>
+                            <constraint firstItem="8qA-yl-WM4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="xsc-dd-1JJ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="messageLabel" destination="fQZ-hS-6wY" id="vb3-go-w6i"/>
+                        <segue destination="lP1-d5-PRS" kind="show" identifier="showAlbumSegue" id="ON5-tq-feK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -108,7 +130,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="THy-yv-alQ">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THy-yv-alQ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </scrollView>
@@ -125,4 +147,7 @@
             <point key="canvasLocation" x="2762.3188405797105" y="112.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="lockIcon" width="256" height="256"/>
+    </resources>
 </document>

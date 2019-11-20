@@ -10,7 +10,7 @@ import UIKit
 
 class PasscodeController:  UIViewController, PasscodeViewDelegate {
 
-//    @IBOutlet weak var lockImage: UIImageView!
+    @IBOutlet weak var messageLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,10 +19,30 @@ class PasscodeController:  UIViewController, PasscodeViewDelegate {
         passcodeView.delegate = self
         view.addSubview(passcodeView)
         passcodeView.becomeFirstResponder()
+        
+        
+        // populate the database if it hasn't already been done
+        let userDefaults = UserDefaults.standard
+        if (!userDefaults.bool(forKey: "hasSetPasscode")) {
+            messageLabel.text = "Please set your passcode!"
+        }
+        
     }
     
     func passcodeView(_ passcodeView: PasscodeView, finishedWithPasscode passcode: String) {
-        if (passcode == "1234") {
+        let userDefaults = UserDefaults.standard
+        if (!userDefaults.bool(forKey: "hasSetPasscode")) {
+            userDefaults.set(true, forKey: "hasSetPasscode")
+            messageLabel.text = "Please confirm your passcode!"
+            passcodeView.clear()
+            return
+        }
+        if (!userDefaults.bool(forKey: "hasConfirmedPasscode")) {
+            userDefaults.set(passcode, forKey: "passcode")
+            userDefaults.set(true, forKey: "hasConfirmedPasscode")
+        }
+        
+        if (passcode == userDefaults.string(forKey: "passcode")) {
             self.performSegue(withIdentifier: "showAlbumSegue", sender: self)
         } else {
             let title = "Wrong!"
