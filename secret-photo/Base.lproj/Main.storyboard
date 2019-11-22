@@ -60,11 +60,15 @@
         <!--Navigation Controller-->
         <scene sceneID="a5z-H3-faI">
             <objects>
-                <navigationController id="lP1-d5-PRS" sceneMemberID="viewController">
+                <navigationController toolbarHidden="NO" id="lP1-d5-PRS" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XgM-iO-wqB">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vDh-Qq-ajl">
+                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="eVK-IH-CXl" kind="relationship" relationship="rootViewController" id="Si3-xA-QD4"/>
                     </connections>
@@ -73,7 +77,7 @@
             </objects>
             <point key="canvasLocation" x="1129" y="113"/>
         </scene>
-        <!--App-->
+        <!--Photo Album-->
         <scene sceneID="B9M-rx-mxI">
             <objects>
                 <collectionViewController id="eVK-IH-CXl" customClass="AlbumController" customModule="secret_photo" customModuleProvider="target" sceneMemberID="viewController">
@@ -116,7 +120,20 @@
                             <outlet property="delegate" destination="eVK-IH-CXl" id="LKo-Q4-Tgg"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="App" id="Q1M-dn-mcy"/>
+                    <toolbarItems>
+                        <barButtonItem image="lockIcon" id="yHc-RN-s15">
+                            <connections>
+                                <action selector="addPhoto:" destination="eVK-IH-CXl" id="tjf-Qm-Fah"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Item" image="lockIcon" id="3pS-X9-mTe">
+                            <connections>
+                                <action selector="addPhotoFromCamera:" destination="eVK-IH-CXl" id="n2g-ZT-OHD"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Photo Album" id="Q1M-dn-mcy"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M9b-Wv-2Bx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

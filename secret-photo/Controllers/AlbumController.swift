@@ -24,37 +24,18 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
     }
     
     func getPhotos() {
-        
         for name in photoNames {
             imageArray.append(UIImage(named: name)!)
         }
         
-//        let imgManager = PHImageManager.default()
-//
-//        let requestOptions = PHImageRequestOptions()
-//        requestOptions.isSynchronous = true
-//        requestOptions.deliveryMode = .opportunistic
-//
-//        let fetchOptions = PHFetchOptions()
-//        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-//
-//        let fetchResult : PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-//
-//        if fetchResult.count > 0 {
-//            for i in 0..<fetchResult.count {
-//                imgManager.requestImage(for: fetchResult.object(at: i), targetSize: CGSize(width: 200, height: 200), contentMode: .aspectFill, options: requestOptions, resultHandler:
-//                    {
-//                        image, error in
-//
-//                        self.imageArray.append(image!)
-//                    }
-//                )
-//            }
-//        } else {
-//            print("you have no photos")
-//            self.collectionView.reloadData()
-//        }
-//
+        let imageNames = ImageRepository.getAllImageNamesByAlbum(albumName: "Album1")
+        for imageName in imageNames {
+            if imageName.imageUrl != nil {
+                if let imageFromFile = self.loadImageFromDiskWith(fileName: imageName.imageUrl!) {
+                    imageArray.append(imageFromFile)
+                }
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -96,5 +77,142 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    @IBAction func addPhotoFromCamera(_ sender: Any) {
+        AVCaptureDevice.requestAccess(for: AVMediaType.video) { response in
+            if response {
+                self.getPhotoFromCamera()
+            } else {
+                self.alertPermissionRequired(resourceNeedingAccess: "Camera")
+            }
+        }
+    }
+    
+    @IBAction func addPhoto(_ sender: Any) {
+        let photos = PHPhotoLibrary.authorizationStatus()
+        if photos == .notDetermined {
+            print("1")
+            PHPhotoLibrary.requestAuthorization({status in
+                if status == .authorized{
+                    self.getPhotoFromLibrary()
+                } else {
+                    self.alertPermissionRequired(resourceNeedingAccess: "Photos")
+                }
+            })
+        } else if photos == .authorized {
+            self.getPhotoFromLibrary()
+        }
+    }
+    
+    func getPhotoFromLibrary() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            DispatchQueue.main.async {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self;
+                imagePicker.sourceType = .photoLibrary
+//                imagePicker.mediaTypes = ["public.image", "public.movie"]
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func getPhotoFromCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            DispatchQueue.main.async {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self;
+                imagePicker.sourceType = .camera
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func alertPermissionRequired(resourceNeedingAccess: String) {
+        let title = "Access Denied"
+        let message = "Access to " + resourceNeedingAccess + " needs to be allowed."
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        present(alert, animated: true)
+    }
+    
+    func saveImage(imageName: String, image: UIImage) {
+        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        
+        let fileName = imageName
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        guard let data = image.jpegData(compressionQuality: 1) else { return }
+        
+        //Checks if file exists, removes it if so.
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                try FileManager.default.removeItem(atPath: fileURL.path)
+                print("Removed old image")
+            } catch let removeError {
+                print("couldn't remove file at path", removeError)
+            }
+        }
+        do {
+            try data.write(to: fileURL)
+        } catch let error {
+            print("error saving file with error", error)
+        }
+    }
+    
+    
+    
+    func loadImageFromDiskWith(fileName: String) -> UIImage? {
+        
+        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        
+        let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+        let paths = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
+        
+        if let dirPath = paths.first {
+            let imageUrl = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
+            let image = UIImage(contentsOfFile: imageUrl.path)
+            return image
+            
+        }
+        
+        return nil
+    }
+    
 }
 
+extension AlbumController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var newImage: UIImage
+        
+        var assetName: String? = nil
+        
+        if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset {
+            let assetResources = PHAssetResource.assetResources(for: asset)
+            assetName = assetResources.first!.originalFilename
+        }
+        if assetName == nil {
+            assetName = UUID.init().uuidString
+        }
+        
+        if let possibleImage = info[.editedImage] as? UIImage {
+            newImage = possibleImage
+        } else if let possibleImage = info[.originalImage] as? UIImage {
+            newImage = possibleImage
+        } else {
+            return
+        }
+        
+        // do something interesting here!
+        print(newImage.size)
+        imageArray.append(newImage)
+        
+        
+        ImageRepository.saveImage(albumName: "Album1", imageUrl: assetName!)
+        self.saveImage(imageName: assetName!, image: newImage)
+
+        
+        dismiss(animated: true)
+        collectionView.reloadData()
+    }
+}

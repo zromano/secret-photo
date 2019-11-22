@@ -14,7 +14,7 @@ class PasscodeController:  UIViewController, PasscodeViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let frame = CGRect(x: 0, y: view.frame.height/2 + 20, width: view.frame.width, height: 100)
+        let frame = CGRect(x: 0, y: messageLabel.frame.maxY + 20, width: view.frame.width, height: 100)
         let passcodeView = PasscodeView(frame: frame)
         passcodeView.delegate = self
         view.addSubview(passcodeView)
