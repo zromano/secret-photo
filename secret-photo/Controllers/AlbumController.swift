@@ -11,6 +11,10 @@ import Photos
 
 class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    @IBOutlet weak var albumTitle: UINavigationItem!
+    
+    var albumName: String = "Photo Album"
+
     let photoNames = [
         "arch", "bean", "breck", "coronado", "default", "grandCanyon",
         "hooverDam", "jhu", "pikePlace", "santaMonica", "whiteHouse"
@@ -20,6 +24,7 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        albumTitle.title = albumName
         getPhotos()
     }
     
@@ -28,7 +33,7 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
             imageArray.append(UIImage(named: name)!)
         }
         
-        let imageNames = ImageRepository.getAllImageNamesByAlbum(albumName: "Album1")
+        let imageNames = ImageNameRepository.getAllImageNamesByAlbum(albumName: self.albumName)
         for imageName in imageNames {
             if imageName.imageUrl != nil {
                 if let imageFromFile = self.loadImageFromDiskWith(fileName: imageName.imageUrl!) {
@@ -90,7 +95,6 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
     @IBAction func addPhoto(_ sender: Any) {
         let photos = PHPhotoLibrary.authorizationStatus()
         if photos == .notDetermined {
-            print("1")
             PHPhotoLibrary.requestAuthorization({status in
                 if status == .authorized{
                     self.getPhotoFromLibrary()
@@ -185,15 +189,7 @@ extension AlbumController: UIImagePickerControllerDelegate, UINavigationControll
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         var newImage: UIImage
         
-        var assetName: String? = nil
-        
-        if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset {
-            let assetResources = PHAssetResource.assetResources(for: asset)
-            assetName = assetResources.first!.originalFilename
-        }
-        if assetName == nil {
-            assetName = UUID.init().uuidString
-        }
+        var assetName: String = UUID.init().uuidString
         
         if let possibleImage = info[.editedImage] as? UIImage {
             newImage = possibleImage
@@ -203,13 +199,11 @@ extension AlbumController: UIImagePickerControllerDelegate, UINavigationControll
             return
         }
         
-        // do something interesting here!
-        print(newImage.size)
         imageArray.append(newImage)
         
         
-        ImageRepository.saveImage(albumName: "Album1", imageUrl: assetName!)
-        self.saveImage(imageName: assetName!, image: newImage)
+        ImageNameRepository.saveImage(albumName: "Album1", imageUrl: assetName)
+        self.saveImage(imageName: assetName, image: newImage)
 
         
         dismiss(animated: true)

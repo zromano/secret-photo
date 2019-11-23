@@ -20,7 +20,6 @@ class PhotoController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollToPage(page: Int, animated: Bool) {
-        print(page)
         if (page > viewPhotoAtIndex || page < 0) {
             return
         }

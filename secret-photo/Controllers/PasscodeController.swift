@@ -14,7 +14,7 @@ class PasscodeController:  UIViewController, PasscodeViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let frame = CGRect(x: 0, y: messageLabel.frame.maxY + 20, width: view.frame.width, height: 100)
+        let frame = CGRect(x: 0, y: messageLabel.frame.maxY + 5, width: view.frame.width, height: view.frame.height / 6)
         let passcodeView = PasscodeView(frame: frame)
         passcodeView.delegate = self
         view.addSubview(passcodeView)
@@ -43,7 +43,7 @@ class PasscodeController:  UIViewController, PasscodeViewDelegate {
         }
         
         if (passcode == userDefaults.string(forKey: "passcode")) {
-            self.performSegue(withIdentifier: "showAlbumSegue", sender: self)
+            self.performSegue(withIdentifier: "showAlbumSelectionSegue", sender: self)
         } else {
             let title = "Wrong!"
             let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
@@ -51,17 +51,6 @@ class PasscodeController:  UIViewController, PasscodeViewDelegate {
             present(alert, animated: true)
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

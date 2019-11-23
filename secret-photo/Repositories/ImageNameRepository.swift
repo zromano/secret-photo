@@ -1,5 +1,5 @@
 //
-//  ImageRepository.swift
+//  ImageNameRepository.swift
 //  secret-photo
 //
 //  Created by Zach Romano on 11/21/19.
@@ -9,7 +9,23 @@
 import CoreData
 import UIKit
 
-class ImageRepository {
+class ImageNameRepository {
+    
+    static func getNumberOfImagesByAlbum(albumName: String) -> Int {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSNumber>(entityName: "ImageName")
+        fetchRequest.resultType = .countResultType
+        fetchRequest.predicate = NSPredicate(format: "album == %@", albumName)
+        do {
+            let count = try context.fetch(fetchRequest)
+            return count[0].intValue
+        } catch {
+            print("error is \(error)")
+            return -1
+        }
+    }
+    
     /*
      return all image names by Album from CoreData
      */
