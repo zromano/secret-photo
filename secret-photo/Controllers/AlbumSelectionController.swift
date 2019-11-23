@@ -10,26 +10,26 @@ import UIKit
 
 class AlbumSelectionController: UITableViewController {
     
-    var albums : [Album] = []
+    var albumNames : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        AlbumRepository.saveAlbum(albumName: "Album1")
-        albums = AlbumRepository.getAllAlbums()
+        albumNames = AlbumRepository.getAllAlbumNames()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return albums.count
+        return albumNames.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "albumTableCellReuseIdentifier", for: indexPath)
         
-        let albumName = albums[indexPath.row].name
-        let numImagesInAlbum: Int = ImageNameRepository.getNumberOfImagesByAlbum(albumName: albumName!)
+        let albumName = albumNames[indexPath.row]
+        let numImagesInAlbum: Int = ImageNameRepository.getNumberOfImagesByAlbum(albumName: albumName)
         
-        cell.textLabel?.text = albumName! + " (" + String(numImagesInAlbum) + ")"
+        cell.textLabel?.text = albumName + " (" + String(numImagesInAlbum) + ")"
         cell.imageView?.image = UIImage(named: "arch")
         
         let itemSize = CGSize.init(width: 35, height: 35)
@@ -46,7 +46,32 @@ class AlbumSelectionController: UITableViewController {
         if (segue.identifier == "showAlbumSegue") {
             let albumView: AlbumController = segue.destination as! AlbumController
             let indexPath: NSIndexPath = self.tableView.indexPath(for: sender as! UITableViewCell)! as NSIndexPath
-            albumView.albumName = albums[indexPath.row].name!
+            albumView.albumName = albumNames[indexPath.row]
         }
+    }
+    
+    
+    @IBAction func createNewAlbumPressed(_ sender: Any) {
+        let albumNameInputAlert = UIAlertController(title: "Some Title", message: "Enter a text", preferredStyle: .alert)
+        
+        albumNameInputAlert.addTextField { (textField) in
+            textField.text = ""
+        }
+        
+        albumNameInputAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak albumNameInputAlert] (_) in
+            let textField = albumNameInputAlert?.textFields![0]
+            if (textField?.text != nil && textField?.text != "") {
+                AlbumRepository.saveAlbum(albumName: textField!.text!)
+                self.albumNames.append(textField!.text!)
+                self.tableView.reloadData()
+            } else {
+                let badNamealert = UIAlertController(title: "Album name cannot be blank!", message: nil, preferredStyle: .alert)
+                badNamealert.addAction(UIAlertAction(title: "OK", style: .cancel) { _ in })
+                self.present(badNamealert, animated: true)
+            }
+            
+        }))
+        
+        self.present(albumNameInputAlert, animated: true, completion: nil)
     }
 }

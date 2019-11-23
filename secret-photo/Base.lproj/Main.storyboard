@@ -113,7 +113,15 @@
                             <outlet property="delegate" destination="1Ct-Dn-GJy" id="sfG-ZC-ttS"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem image="lockIcon" width="163.66666666666669" id="ARb-Kg-l0f">
+                            <connections>
+                                <action selector="createNewAlbumPressed:" destination="1Ct-Dn-GJy" id="bp3-kw-fts"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Albums" id="pbb-yh-ngC"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iHV-Li-87W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

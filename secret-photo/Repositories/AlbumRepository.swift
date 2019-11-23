@@ -14,13 +14,19 @@ class AlbumRepository {
     /*
      return all album names by Album from CoreData
      */
-    static func getAllAlbums() -> [Album] {
+    static func getAllAlbumNames() -> [String] {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<Album> = Album.fetchRequest()
         do {
             let albums = try context.fetch(fetchRequest)
-            return albums
+            var albumNames: [String] = []
+            for album in albums {
+                if (album.name != nil) {
+                    albumNames.append(album.name!)
+                }
+            }
+            return albumNames
         } catch {
             print("error is \(error)")
             return []

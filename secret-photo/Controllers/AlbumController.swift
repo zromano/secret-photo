@@ -189,7 +189,7 @@ extension AlbumController: UIImagePickerControllerDelegate, UINavigationControll
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         var newImage: UIImage
         
-        var assetName: String = UUID.init().uuidString
+        let assetName: String = UUID.init().uuidString
         
         if let possibleImage = info[.editedImage] as? UIImage {
             newImage = possibleImage
