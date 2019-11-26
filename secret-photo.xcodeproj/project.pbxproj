@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50608530238CFEEC004D3571 /* InvalidLoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5060852F238CFEEC004D3571 /* InvalidLoginRepository.swift */; };
+		50608532238D046C004D3571 /* InvalidLoginMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50608531238D046C004D3571 /* InvalidLoginMapController.swift */; };
+		50608535238D0911004D3571 /* InvalidLocationPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50608534238D0911004D3571 /* InvalidLocationPin.swift */; };
 		508F3F6D2387BD1D00BE3F2A /* ImageNameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F3F6C2387BD1D00BE3F2A /* ImageNameRepository.swift */; };
 		508F3F6F2388FC4800BE3F2A /* AlbumSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F3F6E2388FC4800BE3F2A /* AlbumSelectionController.swift */; };
 		508F3F7123890EA500BE3F2A /* AlbumRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F3F7023890EA500BE3F2A /* AlbumRepository.swift */; };
@@ -22,6 +25,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5060852F238CFEEC004D3571 /* InvalidLoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidLoginRepository.swift; sourceTree = "<group>"; };
+		50608531238D046C004D3571 /* InvalidLoginMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidLoginMapController.swift; sourceTree = "<group>"; };
+		50608534238D0911004D3571 /* InvalidLocationPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidLocationPin.swift; sourceTree = "<group>"; };
 		508F3F6C2387BD1D00BE3F2A /* ImageNameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNameRepository.swift; sourceTree = "<group>"; };
 		508F3F6E2388FC4800BE3F2A /* AlbumSelectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSelectionController.swift; sourceTree = "<group>"; };
 		508F3F7023890EA500BE3F2A /* AlbumRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepository.swift; sourceTree = "<group>"; };
@@ -49,11 +55,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		50608533238D08FD004D3571 /* HelperClasses */ = {
+			isa = PBXGroup;
+			children = (
+				50608534238D0911004D3571 /* InvalidLocationPin.swift */,
+			);
+			path = HelperClasses;
+			sourceTree = "<group>";
+		};
 		508F3F6B2387BBF000BE3F2A /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
 				508F3F6C2387BD1D00BE3F2A /* ImageNameRepository.swift */,
 				508F3F7023890EA500BE3F2A /* AlbumRepository.swift */,
+				5060852F238CFEEC004D3571 /* InvalidLoginRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -77,6 +92,7 @@
 		509633E32384F513006924C0 /* secret-photo */ = {
 			isa = PBXGroup;
 			children = (
+				50608533238D08FD004D3571 /* HelperClasses */,
 				508F3F6B2387BBF000BE3F2A /* Repositories */,
 				509633FF2384FCAF006924C0 /* Controllers */,
 				509634032384FCAF006924C0 /* Views */,
@@ -97,6 +113,7 @@
 				508F3F6E2388FC4800BE3F2A /* AlbumSelectionController.swift */,
 				509634012384FCAF006924C0 /* AlbumController.swift */,
 				509634022384FCAF006924C0 /* PhotoController.swift */,
+				50608531238D046C004D3571 /* InvalidLoginMapController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -187,8 +204,11 @@
 				508F3F6D2387BD1D00BE3F2A /* ImageNameRepository.swift in Sources */,
 				509634062384FCAF006924C0 /* AlbumController.swift in Sources */,
 				509634052384FCAF006924C0 /* PasscodeController.swift in Sources */,
+				50608532238D046C004D3571 /* InvalidLoginMapController.swift in Sources */,
 				509633ED2384F513006924C0 /* secret_photo.xcdatamodeld in Sources */,
 				509633E52384F513006924C0 /* AppDelegate.swift in Sources */,
+				50608535238D0911004D3571 /* InvalidLocationPin.swift in Sources */,
+				50608530238CFEEC004D3571 /* InvalidLoginRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

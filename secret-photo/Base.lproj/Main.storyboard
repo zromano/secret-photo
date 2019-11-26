@@ -35,7 +35,7 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELH-16-4FW">
                                 <rect key="frame" x="10" y="240.5" width="355" height="120"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -123,11 +123,19 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem image="plus" width="163.66666666666669" id="ARb-Kg-l0f">
+                        <barButtonItem systemItem="flexibleSpace" id="wsQ-iD-a3v"/>
+                        <barButtonItem systemItem="add" id="ARb-Kg-l0f">
                             <connections>
                                 <action selector="createNewAlbumPressed:" destination="1Ct-Dn-GJy" id="bp3-kw-fts"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem systemItem="flexibleSpace" id="Y8d-Wl-yao"/>
+                        <barButtonItem title="Bad Logins" id="5Tj-Qu-CzV">
+                            <connections>
+                                <segue destination="gA8-zR-muM" kind="show" id="bZ9-3Y-fte"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem systemItem="flexibleSpace" id="6gC-F2-tlE"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Albums" id="pbb-yh-ngC"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -135,6 +143,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iHV-Li-87W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1357.9710144927537" y="112.50000000000001"/>
+        </scene>
+        <!--Invalid Login Locations-->
+        <scene sceneID="pIh-Jn-3ct">
+            <objects>
+                <viewController title="Invalid Login Locations" id="gA8-zR-muM" customClass="InvalidLoginMapController" customModule="secret_photo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="m1t-rd-7tp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="q8G-JS-43o">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="cpv-eG-gkN"/>
+                    </view>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="mkView" destination="q8G-JS-43o" id="Mn5-es-3im"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kb1-IT-wVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1357.5999999999999" y="911.69415292353835"/>
         </scene>
         <!--Photo Album-->
         <scene sceneID="B9M-rx-mxI">
@@ -180,16 +213,19 @@
                         </connections>
                     </collectionView>
                     <toolbarItems>
-                        <barButtonItem image="photoGallery" id="yHc-RN-s15">
+                        <barButtonItem systemItem="flexibleSpace" id="KbQ-WK-mtY"/>
+                        <barButtonItem systemItem="add" id="yHc-RN-s15">
                             <connections>
                                 <action selector="addPhoto:" destination="eVK-IH-CXl" id="tjf-Qm-Fah"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="Item" image="camera" width="210" id="3pS-X9-mTe">
+                        <barButtonItem systemItem="flexibleSpace" id="31u-uG-apP"/>
+                        <barButtonItem systemItem="camera" id="3pS-X9-mTe">
                             <connections>
                                 <action selector="addPhotoFromCamera:" destination="eVK-IH-CXl" id="n2g-ZT-OHD"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem systemItem="flexibleSpace" id="65T-g3-7KJ"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Photo Album" id="Q1M-dn-mcy"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -227,9 +263,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="camera" width="256" height="256"/>
         <image name="lockIcon" width="256" height="256"/>
-        <image name="photoGallery" width="256" height="256"/>
-        <image name="plus" width="256" height="256"/>
     </resources>
 </document>

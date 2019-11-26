@@ -9,8 +9,14 @@
         <attribute name="isVideo" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="videoUrl" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="InvalidLogin" representedClassName="InvalidLogin" syncable="YES" codeGenerationType="class">
+        <attribute name="dateAccessed" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Album" positionX="-54" positionY="9" width="128" height="60"/>
         <element name="ImageName" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="InvalidLogin" positionX="-54" positionY="9" width="128" height="90"/>
     </elements>
 </model>

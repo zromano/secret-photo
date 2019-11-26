@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import MapKit
 
-class PasscodeController:  UIViewController, PasscodeViewDelegate {
+class PasscodeController:  UIViewController, PasscodeViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var passcodeArea: UIView!
+    
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +39,7 @@ class PasscodeController:  UIViewController, PasscodeViewDelegate {
     
     func passcodeView(_ passcodeView: PasscodeView, finishedWithPasscode passcode: String) {
         let userDefaults = UserDefaults.standard
+        
         // if they entered the passcode for the first time:
         if (!userDefaults.bool(forKey: "hasEnteredPasscodeOnce")) {
             userDefaults.set(true, forKey: "hasEnteredPasscodeOnce")
@@ -44,6 +48,7 @@ class PasscodeController:  UIViewController, PasscodeViewDelegate {
             passcodeView.clear()
             return
         }
+        
         // if they are confirming the passcode:
         if (!userDefaults.bool(forKey: "hasConfirmedPasscode")) {
             
@@ -61,18 +66,38 @@ class PasscodeController:  UIViewController, PasscodeViewDelegate {
             
             userDefaults.set(passcode, forKey: "passcode")
             userDefaults.set(true, forKey: "hasConfirmedPasscode")
+            
+            // Request Access to use the user's location
+            self.locationManager.requestWhenInUseAuthorization()
         }
         
         if (passcode == userDefaults.string(forKey: "passcode")) {
             self.performSegue(withIdentifier: "showAlbumSelectionSegue", sender: self)
         } else {
+            // Invalid Login:
+            // log an invalid login attempt
+            if CLLocationManager.locationServicesEnabled()  &&
+                CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+                locationManager.delegate = self
+                locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                
+                let latitude = locationManager.location?.coordinate.latitude
+                let longitude = locationManager.location?.coordinate.longitude
+                
+                if (latitude != nil && longitude != nil) {
+                    InvalidLoginRepository.saveInvalidLogin(latitude: latitude!, longitude: longitude!)
+                }
+                
+            }
+            
+            // Show wrong alert and clear passcode
             let title = "Wrong!"
             let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel) { _ in passcodeView.clear() })
             present(alert, animated: true)
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
