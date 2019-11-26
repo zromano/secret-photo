@@ -14,13 +14,19 @@ class AlbumSelectionController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        AlbumRepository.saveAlbum(albumName: "Album1")
         albumNames = AlbumRepository.getAllAlbumNames()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return albumNames.count
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0;
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -30,9 +36,9 @@ class AlbumSelectionController: UITableViewController {
         let numImagesInAlbum: Int = ImageNameRepository.getNumberOfImagesByAlbum(albumName: albumName)
         
         cell.textLabel?.text = albumName + " (" + String(numImagesInAlbum) + ")"
-        cell.imageView?.image = UIImage(named: "arch")
+        cell.imageView?.image = UIImage(named: "default")
         
-        let itemSize = CGSize.init(width: 35, height: 35)
+        let itemSize = CGSize.init(width: 100, height: 100)
         UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);
         let imageRect = CGRect.init(origin: CGPoint.zero, size: itemSize)
         cell.imageView?.image!.draw(in: imageRect)

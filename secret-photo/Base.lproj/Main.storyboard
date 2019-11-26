@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_5" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,24 +15,28 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="PasscodeController" customModule="secret_photo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Secret Photos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qA-yl-WM4">
-                                <rect key="frame" x="0.0" y="20" width="414" height="41"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="2pN-IX-BRE">
-                                <rect key="frame" x="79" y="85" width="256" height="92"/>
+                                <rect key="frame" x="59.5" y="85" width="256" height="83.5"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-hS-6wY">
-                                <rect key="frame" x="10" y="202" width="394" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-hS-6wY">
+                                <rect key="frame" x="10" y="193.5" width="355" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELH-16-4FW">
+                                <rect key="frame" x="10" y="240.5" width="355" height="120"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -40,33 +44,38 @@
                             <constraint firstItem="fQZ-hS-6wY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="-20" id="IBh-1C-0er"/>
                             <constraint firstItem="fQZ-hS-6wY" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="P43-wI-h4X"/>
                             <constraint firstItem="8qA-yl-WM4" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Sef-C3-hDr"/>
+                            <constraint firstItem="ELH-16-4FW" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.18" id="Uy8-qa-7S7"/>
                             <constraint firstItem="fQZ-hS-6wY" firstAttribute="top" secondItem="2pN-IX-BRE" secondAttribute="bottom" constant="25" id="WC4-3G-VCo"/>
+                            <constraint firstItem="ELH-16-4FW" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WO9-V6-ggV"/>
                             <constraint firstItem="2pN-IX-BRE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="b0U-iy-0hs"/>
                             <constraint firstItem="2pN-IX-BRE" firstAttribute="top" secondItem="8qA-yl-WM4" secondAttribute="bottom" constant="24" id="gE2-vN-hbg"/>
                             <constraint firstItem="2pN-IX-BRE" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.125" id="k1g-xM-Xmp"/>
+                            <constraint firstItem="ELH-16-4FW" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="-20" id="uKh-mS-xmo"/>
+                            <constraint firstItem="ELH-16-4FW" firstAttribute="top" secondItem="fQZ-hS-6wY" secondAttribute="bottom" constant="26" id="vIG-Oy-mhp"/>
                             <constraint firstItem="8qA-yl-WM4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="xsc-dd-1JJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="messageLabel" destination="fQZ-hS-6wY" id="vb3-go-w6i"/>
+                        <outlet property="passcodeArea" destination="ELH-16-4FW" id="eH0-ry-Nxc"/>
                         <segue destination="lP1-d5-PRS" kind="show" identifier="showAlbumSelectionSegue" id="ON5-tq-feK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-170" y="113"/>
+            <point key="canvasLocation" x="-170.40000000000001" y="112.89355322338831"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="a5z-H3-faI">
             <objects>
                 <navigationController toolbarHidden="NO" id="lP1-d5-PRS" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XgM-iO-wqB">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vDh-Qq-ajl">
-                        <rect key="frame" x="0.0" y="692" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -82,19 +91,19 @@
             <objects>
                 <tableViewController id="1Ct-Dn-GJy" customClass="AlbumSelectionController" customModule="secret_photo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="uHa-gX-CD1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="albumTableCellReuseIdentifier" textLabel="WnE-l1-ZNK" rowHeight="93" style="IBUITableViewCellStyleDefault" id="nRX-tM-e88">
-                                <rect key="frame" x="0.0" y="28" width="414" height="93"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="albumTableCellReuseIdentifier" textLabel="WnE-l1-ZNK" rowHeight="158" style="IBUITableViewCellStyleDefault" id="nRX-tM-e88">
+                                <rect key="frame" x="0.0" y="28" width="375" height="158"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nRX-tM-e88" id="ZRC-k9-kmZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="92.666666666666671"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="157.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WnE-l1-ZNK">
-                                            <rect key="frame" x="20" y="0.0" width="374" height="92.666666666666671"/>
+                                            <rect key="frame" x="16" y="0.0" width="343" height="157.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -114,7 +123,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem image="lockIcon" width="163.66666666666669" id="ARb-Kg-l0f">
+                        <barButtonItem image="plus" width="163.66666666666669" id="ARb-Kg-l0f">
                             <connections>
                                 <action selector="createNewAlbumPressed:" destination="1Ct-Dn-GJy" id="bp3-kw-fts"/>
                             </connections>
@@ -132,7 +141,7 @@
             <objects>
                 <collectionViewController id="eVK-IH-CXl" customClass="AlbumController" customModule="secret_photo" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="FNi-IO-VLo">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MDG-ZR-1tC">
@@ -171,12 +180,12 @@
                         </connections>
                     </collectionView>
                     <toolbarItems>
-                        <barButtonItem image="lockIcon" id="yHc-RN-s15">
+                        <barButtonItem image="photoGallery" id="yHc-RN-s15">
                             <connections>
                                 <action selector="addPhoto:" destination="eVK-IH-CXl" id="tjf-Qm-Fah"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="Item" image="lockIcon" width="210" id="3pS-X9-mTe">
+                        <barButtonItem title="Item" image="camera" width="210" id="3pS-X9-mTe">
                             <connections>
                                 <action selector="addPhotoFromCamera:" destination="eVK-IH-CXl" id="n2g-ZT-OHD"/>
                             </connections>
@@ -197,7 +206,7 @@
             <objects>
                 <viewController id="Yrq-8e-ag0" customClass="PhotoController" customModule="secret_photo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cp0-qY-gf7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THy-yv-alQ">
@@ -218,6 +227,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera" width="256" height="256"/>
         <image name="lockIcon" width="256" height="256"/>
+        <image name="photoGallery" width="256" height="256"/>
+        <image name="plus" width="256" height="256"/>
     </resources>
 </document>

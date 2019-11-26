@@ -14,13 +14,9 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
     @IBOutlet weak var albumTitle: UINavigationItem!
     
     var albumName: String = "Photo Album"
-
-    let photoNames = [
-        "arch", "bean", "breck", "coronado", "default", "grandCanyon",
-        "hooverDam", "jhu", "pikePlace", "santaMonica", "whiteHouse"
-    ]
     
     var imageArray = [UIImage]()
+    var imageDataArray = [ImageName]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,15 +25,13 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
     }
     
     func getPhotos() {
-        for name in photoNames {
-            imageArray.append(UIImage(named: name)!)
-        }
-        
         let imageNames = ImageNameRepository.getAllImageNamesByAlbum(albumName: self.albumName)
         for imageName in imageNames {
+            
             if imageName.imageUrl != nil {
                 if let imageFromFile = self.loadImageFromDiskWith(fileName: imageName.imageUrl!) {
                     imageArray.append(imageFromFile)
+                    imageDataArray.append(imageName)
                 }
             }
         }
@@ -49,6 +43,7 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
             let indexPath: NSIndexPath = self.collectionView.indexPath(for: sender as! UICollectionViewCell)! as NSIndexPath
             photoView.viewPhotoAtIndex = indexPath.item
             photoView.imageArray = self.imageArray
+            photoView.imageDataArray = self.imageDataArray
         }
     }
     
@@ -113,7 +108,7 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self;
                 imagePicker.sourceType = .photoLibrary
-//                imagePicker.mediaTypes = ["public.image", "public.movie"]
+                imagePicker.mediaTypes = ["public.image", "public.movie"]
                 self.present(imagePicker, animated: true, completion: nil)
             }
         }
@@ -125,6 +120,7 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self;
                 imagePicker.sourceType = .camera
+                imagePicker.mediaTypes = ["public.image", "public.movie"]
                 self.present(imagePicker, animated: true, completion: nil)
             }
         }
@@ -144,7 +140,6 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
         guard let data = image.jpegData(compressionQuality: 1) else { return }
         
-        //Checks if file exists, removes it if so.
         if FileManager.default.fileExists(atPath: fileURL.path) {
             do {
                 try FileManager.default.removeItem(atPath: fileURL.path)
@@ -160,10 +155,7 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
         }
     }
     
-    
-    
     func loadImageFromDiskWith(fileName: String) -> UIImage? {
-        
         let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
         
         let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
@@ -173,9 +165,7 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
             let imageUrl = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
             let image = UIImage(contentsOfFile: imageUrl.path)
             return image
-            
         }
-        
         return nil
     }
     
@@ -189,21 +179,51 @@ extension AlbumController: UIImagePickerControllerDelegate, UINavigationControll
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         var newImage: UIImage
         
-        let assetName: String = UUID.init().uuidString
+        let imageName: String = UUID.init().uuidString
+        let videoName: String = UUID.init().uuidString + ".mp4"
         
-        if let possibleImage = info[.editedImage] as? UIImage {
+        if let videoURL = info[UIImagePickerController.InfoKey.mediaURL]as? NSURL {
+            do {
+                let asset = AVURLAsset(url: videoURL as URL , options: nil)
+                let imgGenerator = AVAssetImageGenerator(asset: asset)
+                imgGenerator.appliesPreferredTrackTransform = true
+                let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
+                newImage = UIImage(cgImage: cgImage)
+                
+                let videoData = NSData(contentsOf: videoURL as URL)
+                let path = try! FileManager.default.url(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask, appropriateFor: nil, create: false)
+                let newPath = path.appendingPathComponent(videoName)
+                do {
+                    try videoData?.write(to: newPath)
+                } catch {
+                    print(error)
+                }
+                    
+                let newImageInfo = ImageNameRepository.saveVideo(albumName: self.albumName, thumbnailUrl: imageName, videoUrl: videoName)
+                imageArray.append(newImage)
+                self.imageDataArray.append(newImageInfo)
+                self.saveImage(imageName: imageName, image: newImage)
+            } catch let error {
+                print("*** Error generating thumbnail: \(error.localizedDescription)")
+                dismiss(animated: true)
+                return
+            }
+        } else if let possibleImage = info[.editedImage] as? UIImage {
             newImage = possibleImage
+            let newImageInfo = ImageNameRepository.saveImage(albumName: self.albumName, imageUrl: imageName)
+            imageArray.append(newImage)
+            self.imageDataArray.append(newImageInfo)
+            self.saveImage(imageName: imageName, image: newImage)
         } else if let possibleImage = info[.originalImage] as? UIImage {
             newImage = possibleImage
+            let newImageInfo = ImageNameRepository.saveImage(albumName: self.albumName, imageUrl: imageName)
+            imageArray.append(newImage)
+            self.imageDataArray.append(newImageInfo)
+            self.saveImage(imageName: imageName, image: newImage)
         } else {
+            dismiss(animated: true)
             return
         }
-        
-        imageArray.append(newImage)
-        
-        
-        ImageNameRepository.saveImage(albumName: "Album1", imageUrl: assetName)
-        self.saveImage(imageName: assetName, image: newImage)
 
         
         dismiss(animated: true)

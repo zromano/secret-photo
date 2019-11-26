@@ -6,9 +6,11 @@
     <entity name="ImageName" representedClassName="ImageName" syncable="YES" codeGenerationType="class">
         <attribute name="album" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isVideo" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="videoUrl" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ImageName" positionX="-63" positionY="-18" width="128" height="75"/>
         <element name="Album" positionX="-54" positionY="9" width="128" height="60"/>
+        <element name="ImageName" positionX="-63" positionY="-18" width="128" height="105"/>
     </elements>
 </model>

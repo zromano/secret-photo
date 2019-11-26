@@ -43,7 +43,7 @@ class ImageNameRepository {
         }
     }
     
-    static func saveImage(albumName: String, imageUrl: String) {
+    static func saveImage(albumName: String, imageUrl: String) -> ImageName {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
@@ -51,7 +51,26 @@ class ImageNameRepository {
         
         newImage.album = albumName
         newImage.imageUrl = imageUrl
+        newImage.isVideo = false
         
         appDelegate.saveContext()
+        
+        return newImage
+    }
+    
+    static func saveVideo(albumName: String, thumbnailUrl: String, videoUrl: String) -> ImageName {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let newImage = NSEntityDescription.insertNewObject(forEntityName: "ImageName", into: context) as! ImageName
+        
+        newImage.album = albumName
+        newImage.imageUrl = thumbnailUrl
+        newImage.isVideo = true
+        newImage.videoUrl = videoUrl
+        
+        appDelegate.saveContext()
+        
+        return newImage
     }
 }
