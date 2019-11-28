@@ -46,5 +46,25 @@ class AlbumRepository {
         
         appDelegate.saveContext()
     }
+    
+    /*
+     delete an Album from CoreData
+     */
+    static func deleteAlbum(albumName: String) -> Bool {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<Album> = Album.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name == %@", albumName)
+        do {
+            let albums = try context.fetch(fetchRequest)
+            for album in albums {
+                context.delete(album)
+            }
+            return true
+        } catch {
+            print("error is \(error)")
+            return false
+        }
+    }
 }
 

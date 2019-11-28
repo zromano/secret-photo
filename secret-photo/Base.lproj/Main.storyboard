@@ -152,12 +152,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="q8G-JS-43o">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="q8G-JS-43o">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="q8G-JS-43o" secondAttribute="trailing" id="KDf-81-wdn"/>
+                            <constraint firstItem="q8G-JS-43o" firstAttribute="top" secondItem="cpv-eG-gkN" secondAttribute="top" id="RSX-Q1-WSy"/>
+                            <constraint firstItem="q8G-JS-43o" firstAttribute="leading" secondItem="m1t-rd-7tp" secondAttribute="leading" id="pdn-9l-F8e"/>
+                            <constraint firstItem="q8G-JS-43o" firstAttribute="bottom" secondItem="cpv-eG-gkN" secondAttribute="bottom" id="vcS-K7-wC1"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="cpv-eG-gkN"/>
                     </view>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -253,6 +258,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="YVs-ag-tXZ"/>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem systemItem="flexibleSpace" id="Tv7-7E-YvH"/>
+                        <barButtonItem systemItem="trash" id="ONU-wA-ycm">
+                            <connections>
+                                <action selector="deletePhotoButtonTapped:" destination="Yrq-8e-ag0" id="JGd-NG-hWt"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem systemItem="flexibleSpace" id="5S8-Oo-0Vd"/>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="scrollView" destination="THy-yv-alQ" id="Arp-FR-uI6"/>
                     </connections>

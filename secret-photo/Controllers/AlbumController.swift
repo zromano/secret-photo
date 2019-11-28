@@ -14,22 +14,27 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
     @IBOutlet weak var albumTitle: UINavigationItem!
     
     var albumName: String = "Photo Album"
-    
     var imageArray = [UIImage]()
     var imageDataArray = [ImageName]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         albumTitle.title = albumName
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         getPhotos()
+        self.collectionView.reloadData()
     }
     
     func getPhotos() {
+        imageArray = []
+        imageDataArray = []
         let imageNames = ImageNameRepository.getAllImageNamesByAlbum(albumName: self.albumName)
         for imageName in imageNames {
             
             if imageName.imageUrl != nil {
-                if let imageFromFile = self.loadImageFromDiskWith(fileName: imageName.imageUrl!) {
+                if let imageFromFile = MediaHandler.loadImageFromDiskWith(fileName: imageName.imageUrl!) {
                     imageArray.append(imageFromFile)
                     imageDataArray.append(imageName)
                 }
@@ -133,41 +138,9 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
         present(alert, animated: true)
     }
     
-    func saveImage(imageName: String, image: UIImage) {
-        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        
-        let fileName = imageName
-        let fileURL = documentsDirectory.appendingPathComponent(fileName)
-        guard let data = image.jpegData(compressionQuality: 1) else { return }
-        
-        if FileManager.default.fileExists(atPath: fileURL.path) {
-            do {
-                try FileManager.default.removeItem(atPath: fileURL.path)
-                print("Removed old image")
-            } catch let removeError {
-                print("couldn't remove file at path", removeError)
-            }
-        }
-        do {
-            try data.write(to: fileURL)
-        } catch let error {
-            print("error saving file with error", error)
-        }
-    }
     
-    func loadImageFromDiskWith(fileName: String) -> UIImage? {
-        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
-        
-        let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
-        let paths = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
-        
-        if let dirPath = paths.first {
-            let imageUrl = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
-            let image = UIImage(contentsOfFile: imageUrl.path)
-            return image
-        }
-        return nil
-    }
+    
+    
     
 }
 
@@ -202,7 +175,7 @@ extension AlbumController: UIImagePickerControllerDelegate, UINavigationControll
                 let newImageInfo = ImageNameRepository.saveVideo(albumName: self.albumName, thumbnailUrl: imageName, videoUrl: videoName)
                 imageArray.append(newImage)
                 self.imageDataArray.append(newImageInfo)
-                self.saveImage(imageName: imageName, image: newImage)
+                MediaHandler.saveImage(imageName: imageName, image: newImage)
             } catch let error {
                 print("*** Error generating thumbnail: \(error.localizedDescription)")
                 dismiss(animated: true)
@@ -213,13 +186,13 @@ extension AlbumController: UIImagePickerControllerDelegate, UINavigationControll
             let newImageInfo = ImageNameRepository.saveImage(albumName: self.albumName, imageUrl: imageName)
             imageArray.append(newImage)
             self.imageDataArray.append(newImageInfo)
-            self.saveImage(imageName: imageName, image: newImage)
+            MediaHandler.saveImage(imageName: imageName, image: newImage)
         } else if let possibleImage = info[.originalImage] as? UIImage {
             newImage = possibleImage
             let newImageInfo = ImageNameRepository.saveImage(albumName: self.albumName, imageUrl: imageName)
             imageArray.append(newImage)
             self.imageDataArray.append(newImageInfo)
-            self.saveImage(imageName: imageName, image: newImage)
+            MediaHandler.saveImage(imageName: imageName, image: newImage)
         } else {
             dismiss(animated: true)
             return

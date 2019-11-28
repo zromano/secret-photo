@@ -16,12 +16,7 @@ class PhotoController: UIViewController, UIScrollViewDelegate {
     var imageDataArray = [ImageName]()
     
     var viewPhotoAtIndex: Int = 0
-    
-    override func viewDidLoad() {
-        // todo try with helloworld label
-        
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         // populate the images and make them scrollable
         scrollView.frame = view.frame
@@ -94,6 +89,28 @@ class PhotoController: UIViewController, UIScrollViewDelegate {
             }
         }
         
+    }
+    
+    @IBAction func deletePhotoButtonTapped(_ sender: Any) {
+        let imageInfo = imageDataArray[getCurrentPage()]
+        
+        // remove photo from files
+        _ = MediaHandler.deleteMediaFile(fileName: imageInfo.imageUrl!)
+        
+        // possibly remove video
+        if (imageInfo.isVideo) {
+            _ = MediaHandler.deleteMediaFile(fileName: imageInfo.videoUrl!)
+        }
+        
+        // remove ImageName from CoreData
+        _ = ImageNameRepository.deleteImageInfo(imageName: imageInfo.imageUrl!)
+        
+        // pop view to album page
+        _ = navigationController?.popViewController(animated: true)
+    }
+    
+    func getCurrentPage() -> Int {
+        return Int(scrollView.contentOffset.x / scrollView.frame.size.width);
     }
     
     override func didReceiveMemoryWarning() {

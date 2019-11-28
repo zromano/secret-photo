@@ -73,4 +73,21 @@ class ImageNameRepository {
         
         return newImage
     }
+    
+    static func deleteImageInfo(imageName: String) -> Bool {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<ImageName> = ImageName.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "imageUrl == %@", imageName)
+        do {
+            let imageNames = try context.fetch(fetchRequest)
+            for imageName in imageNames {
+                context.delete(imageName)
+            }
+            return true
+        } catch {
+            print("error is \(error)")
+            return false
+        }
+    }
 }

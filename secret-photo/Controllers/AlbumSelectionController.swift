@@ -29,6 +29,24 @@ class AlbumSelectionController: UITableViewController {
         return 100.0;
     }
     
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            // delete folder
+            _ = MediaHandler.deleteFolder(albumName: self.albumNames[indexPath.row])
+            self.albumNames.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
+        let editButton = UITableViewRowAction(style: .default, title: "Edit") { (action, indexPath) in
+            // edit folder
+        }
+        editButton.backgroundColor = UIColor.lightGray
+        
+        return [delete, editButton]
+        
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "albumTableCellReuseIdentifier", for: indexPath)
         
@@ -58,7 +76,7 @@ class AlbumSelectionController: UITableViewController {
     
     
     @IBAction func createNewAlbumPressed(_ sender: Any) {
-        let albumNameInputAlert = UIAlertController(title: "Some Title", message: "Enter a text", preferredStyle: .alert)
+        let albumNameInputAlert = UIAlertController(title: "Album Title", message: "Enter a name for your album.", preferredStyle: .alert)
         
         albumNameInputAlert.addTextField { (textField) in
             textField.text = ""
@@ -66,11 +84,21 @@ class AlbumSelectionController: UITableViewController {
         
         albumNameInputAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak albumNameInputAlert] (_) in
             let textField = albumNameInputAlert?.textFields![0]
+        
             if (textField?.text != nil && textField?.text != "") {
+                // album name already in use
+                if (self.albumNames.contains(textField!.text!)) {
+                    let sameNamealert = UIAlertController(title: "Album name already in use!", message: nil, preferredStyle: .alert)
+                    sameNamealert.addAction(UIAlertAction(title: "OK", style: .cancel) { _ in })
+                    self.present(sameNamealert, animated: true)
+                    return
+                }
+                // happy path
                 AlbumRepository.saveAlbum(albumName: textField!.text!)
                 self.albumNames.append(textField!.text!)
                 self.tableView.reloadData()
             } else {
+                // album name blank
                 let badNamealert = UIAlertController(title: "Album name cannot be blank!", message: nil, preferredStyle: .alert)
                 badNamealert.addAction(UIAlertAction(title: "OK", style: .cancel) { _ in })
                 self.present(badNamealert, animated: true)
