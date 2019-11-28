@@ -66,5 +66,32 @@ class AlbumRepository {
             return false
         }
     }
+    
+    static func updateAlbumSettings(oldAlbumName: String, newAlbumName: String) -> Bool {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Album")
+        fetchRequest.predicate = NSPredicate(format: "name == %@", oldAlbumName)
+        
+        do {
+            let results = try context.fetch(fetchRequest) as? [NSManagedObject]
+            if results?.count != 0 {
+                results![0].setValue(newAlbumName, forKey: "name")
+            }
+        } catch {
+            print("Fetch Failed: \(error)")
+            return false
+        }
+        
+        do {
+            try context.save()
+            return true
+        }
+        catch {
+            print("Saving Core Data Failed: \(error)")
+            return false
+        }
+    }
 }
 

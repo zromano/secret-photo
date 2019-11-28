@@ -86,6 +86,62 @@
             </objects>
             <point key="canvasLocation" x="610" y="113"/>
         </scene>
+        <!--Album Settings Controller-->
+        <scene sceneID="oVe-BR-287">
+            <objects>
+                <viewController id="7Za-4y-53V" customClass="AlbumSettingsController" customModule="secret_photo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eh1-Iq-dGw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALi-c7-PrW">
+                                <rect key="frame" x="16" y="101" width="343" height="49"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Updated Name" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bTY-A8-bQw">
+                                <rect key="frame" x="16" y="158" width="343" height="40"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jcq-gL-HFY">
+                                <rect key="frame" x="16" y="231" width="343" height="74"/>
+                                <color key="backgroundColor" red="0.87066199093902663" green="0.87066199093902663" blue="0.87066199093902663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="74" id="gnc-qs-Bn5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveAlbumSettingsPressed:" destination="7Za-4y-53V" eventType="touchUpInside" id="W7B-Ig-pFG"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ALi-c7-PrW" firstAttribute="top" secondItem="Aey-6F-yjZ" secondAttribute="top" constant="37" id="6Ie-Kg-I7Z"/>
+                            <constraint firstItem="jcq-gL-HFY" firstAttribute="top" secondItem="bTY-A8-bQw" secondAttribute="bottom" constant="33" id="Htc-yH-C8X"/>
+                            <constraint firstItem="bTY-A8-bQw" firstAttribute="leading" secondItem="ALi-c7-PrW" secondAttribute="leading" id="JLp-RI-R3n"/>
+                            <constraint firstItem="ALi-c7-PrW" firstAttribute="leading" secondItem="eh1-Iq-dGw" secondAttribute="leadingMargin" id="Lc9-Jb-cwz"/>
+                            <constraint firstItem="ALi-c7-PrW" firstAttribute="trailing" secondItem="eh1-Iq-dGw" secondAttribute="trailingMargin" id="Ojg-7H-8jU"/>
+                            <constraint firstItem="bTY-A8-bQw" firstAttribute="top" secondItem="ALi-c7-PrW" secondAttribute="bottom" constant="8" symbolic="YES" id="PFl-1s-tpA"/>
+                            <constraint firstItem="jcq-gL-HFY" firstAttribute="trailing" secondItem="bTY-A8-bQw" secondAttribute="trailing" id="QUG-F0-lwg"/>
+                            <constraint firstItem="jcq-gL-HFY" firstAttribute="leading" secondItem="bTY-A8-bQw" secondAttribute="leading" id="W4L-ff-zh3"/>
+                            <constraint firstItem="Aey-6F-yjZ" firstAttribute="bottom" secondItem="ALi-c7-PrW" secondAttribute="bottom" constant="473" id="YkO-Jy-M8g"/>
+                            <constraint firstItem="bTY-A8-bQw" firstAttribute="trailing" secondItem="ALi-c7-PrW" secondAttribute="trailing" id="hQB-bc-DwN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Aey-6F-yjZ"/>
+                    </view>
+                    <connections>
+                        <outlet property="albumNameTextField" destination="bTY-A8-bQw" id="Qus-cf-kQA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hO8-bp-mb4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1357.5999999999999" y="-631.0344827586207"/>
+        </scene>
         <!--Albums-->
         <scene sceneID="fYc-uD-2Pt">
             <objects>
@@ -139,6 +195,9 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Albums" id="pbb-yh-ngC"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="7Za-4y-53V" kind="show" identifier="showAlbumSettingsSegue" id="KN8-f6-i59"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iHV-Li-87W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

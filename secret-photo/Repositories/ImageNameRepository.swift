@@ -90,4 +90,37 @@ class ImageNameRepository {
             return false
         }
     }
+    
+    /*
+     update album name for all images in an album
+     */
+    static func updateAlbumNameForImagesInAlbum(oldAlbumName: String, newAlbumName: String) -> Bool {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<ImageName> = ImageName.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "album == %@", oldAlbumName)
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            if results.count != 0 {
+                for image in results {
+                    image.setValue(newAlbumName, forKey: "album")
+                }
+            } else {
+                return false
+            }
+        } catch {
+            print("Fetch Failed: \(error)")
+            return false
+        }
+        
+        do {
+            try context.save()
+            return true
+        }
+        catch {
+            print("Saving Core Data Failed: \(error)")
+            return false
+        }
+    }
 }

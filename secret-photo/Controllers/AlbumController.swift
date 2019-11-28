@@ -22,7 +22,7 @@ class AlbumController: UICollectionViewController, UICollectionViewDelegateFlowL
         albumTitle.title = albumName
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         getPhotos()
         self.collectionView.reloadData()
     }

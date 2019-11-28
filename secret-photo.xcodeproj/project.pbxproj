@@ -23,6 +23,7 @@
 		509634072384FCAF006924C0 /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509634022384FCAF006924C0 /* PhotoController.swift */; };
 		509634082384FCAF006924C0 /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509634042384FCAF006924C0 /* PasscodeView.swift */; };
 		50DFC9E8239048EF00A2AA3E /* MediaHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFC9E7239048EF00A2AA3E /* MediaHandler.swift */; };
+		50DFC9EA239063DE00A2AA3E /* AlbumSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFC9E9239063DE00A2AA3E /* AlbumSettingsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		509634022384FCAF006924C0 /* PhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
 		509634042384FCAF006924C0 /* PasscodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeView.swift; sourceTree = "<group>"; };
 		50DFC9E7239048EF00A2AA3E /* MediaHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaHandler.swift; sourceTree = "<group>"; };
+		50DFC9E9239063DE00A2AA3E /* AlbumSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSettingsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			children = (
 				509634002384FCAF006924C0 /* PasscodeController.swift */,
 				508F3F6E2388FC4800BE3F2A /* AlbumSelectionController.swift */,
+				50DFC9E9239063DE00A2AA3E /* AlbumSettingsController.swift */,
 				509634012384FCAF006924C0 /* AlbumController.swift */,
 				509634022384FCAF006924C0 /* PhotoController.swift */,
 				50608531238D046C004D3571 /* InvalidLoginMapController.swift */,
@@ -206,6 +209,7 @@
 				508F3F7123890EA500BE3F2A /* AlbumRepository.swift in Sources */,
 				508F3F6D2387BD1D00BE3F2A /* ImageNameRepository.swift in Sources */,
 				509634062384FCAF006924C0 /* AlbumController.swift in Sources */,
+				50DFC9EA239063DE00A2AA3E /* AlbumSettingsController.swift in Sources */,
 				509634052384FCAF006924C0 /* PasscodeController.swift in Sources */,
 				50608532238D046C004D3571 /* InvalidLoginMapController.swift in Sources */,
 				50DFC9E8239048EF00A2AA3E /* MediaHandler.swift in Sources */,

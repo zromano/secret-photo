@@ -12,12 +12,8 @@ class AlbumSelectionController: UITableViewController {
     
     var albumNames : [String] = []
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        albumNames = AlbumRepository.getAllAlbumNames()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
+        albumNames = AlbumRepository.getAllAlbumNames()
         self.tableView.reloadData()
     }
 
@@ -40,6 +36,8 @@ class AlbumSelectionController: UITableViewController {
         
         let editButton = UITableViewRowAction(style: .default, title: "Edit") { (action, indexPath) in
             // edit folder
+            self.performSegue(withIdentifier: "showAlbumSettingsSegue", sender: self.albumNames[indexPath.row])
+            
         }
         editButton.backgroundColor = UIColor.lightGray
         
@@ -67,10 +65,17 @@ class AlbumSelectionController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if (segue.identifier == "showAlbumSegue") {
             let albumView: AlbumController = segue.destination as! AlbumController
             let indexPath: NSIndexPath = self.tableView.indexPath(for: sender as! UITableViewCell)! as NSIndexPath
             albumView.albumName = albumNames[indexPath.row]
+            
+        } else if (segue.identifier == "showAlbumSettingsSegue") {
+            let albumName = sender as! String
+            let albumSettingsView: AlbumSettingsController = segue.destination as! AlbumSettingsController
+            albumSettingsView.albumName = albumName
+            
         }
     }
     

@@ -94,16 +94,7 @@ class PhotoController: UIViewController, UIScrollViewDelegate {
     @IBAction func deletePhotoButtonTapped(_ sender: Any) {
         let imageInfo = imageDataArray[getCurrentPage()]
         
-        // remove photo from files
-        _ = MediaHandler.deleteMediaFile(fileName: imageInfo.imageUrl!)
-        
-        // possibly remove video
-        if (imageInfo.isVideo) {
-            _ = MediaHandler.deleteMediaFile(fileName: imageInfo.videoUrl!)
-        }
-        
-        // remove ImageName from CoreData
-        _ = ImageNameRepository.deleteImageInfo(imageName: imageInfo.imageUrl!)
+        _ = MediaHandler.deleteImageOrVideo(imageName: imageInfo)
         
         // pop view to album page
         _ = navigationController?.popViewController(animated: true)
