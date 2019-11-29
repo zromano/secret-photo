@@ -104,6 +104,38 @@ class PhotoController: UIViewController, UIScrollViewDelegate {
         return Int(scrollView.contentOffset.x / scrollView.frame.size.width);
     }
     
+    @IBAction func copyPressed(_ sender: Any) {
+        let curImageIndex = self.getCurrentPage()
+
+        // copy video
+        if (imageDataArray[curImageIndex].isVideo) {
+            let pb = UIPasteboard.general
+            
+            let url = self.generateVideoUrl(fileName: imageDataArray[curImageIndex].videoUrl!)
+            let data: NSData = try! NSData(contentsOf: url!, options: NSData.ReadingOptions.mappedIfSafe)
+            pb.setData(data as Data, forPasteboardType: "public.mpeg-4")
+        } else {
+            // copy image
+            let image = imageArray[curImageIndex]
+            UIPasteboard.general.image = rotateImage(image: image)
+        }
+    }
+    
+    /*
+     Rotate image because they may not be saved as the correct orientation
+     Taken from: https://stackoverflow.com/questions/3554244/uiimagepngrepresentation-issues-images-rotated-by-90-degrees
+    */
+    func rotateImage(image: UIImage) -> UIImage? {
+        if (image.imageOrientation == UIImage.Orientation.up ) {
+            return image
+        }
+        UIGraphicsBeginImageContext(image.size)
+        image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
+        let copy = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return copy
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
