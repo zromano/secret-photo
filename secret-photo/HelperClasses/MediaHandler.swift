@@ -33,15 +33,14 @@ class MediaHandler {
         if FileManager.default.fileExists(atPath: fileURL.path) {
             do {
                 try FileManager.default.removeItem(atPath: fileURL.path)
-                print("Removed old image")
-            } catch let removeError {
-                print("couldn't remove file at path", removeError)
+            } catch let error {
+                print(error)
             }
         }
         do {
             try data.write(to: fileURL)
         } catch let error {
-            print("error saving file with error", error)
+            print(error)
         }
     }
     
@@ -53,10 +52,9 @@ class MediaHandler {
         if FileManager.default.fileExists(atPath: fileURL.path) {
             do {
                 try FileManager.default.removeItem(atPath: fileURL.path)
-                print("Removed image")
                 return true
-            } catch let removeError {
-                print("couldn't remove file at path", removeError)
+            } catch let error {
+                print(error)
                 return false
             }
         } else {

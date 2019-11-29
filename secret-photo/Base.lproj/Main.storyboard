@@ -319,11 +319,7 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem systemItem="flexibleSpace" id="Tv7-7E-YvH"/>
-                        <barButtonItem title="Copy" id="l01-pQ-STO">
-                            <connections>
-                                <action selector="copyPressed:" destination="Yrq-8e-ag0" id="SOi-I6-Nw2"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem title="Copy" id="l01-pQ-STO"/>
                         <barButtonItem systemItem="flexibleSpace" id="5S8-Oo-0Vd"/>
                         <barButtonItem systemItem="trash" id="ONU-wA-ycm">
                             <connections>
