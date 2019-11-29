@@ -16,14 +16,6 @@ class AlbumSelectionController: UITableViewController {
         albumNames = AlbumRepository.getAllAlbumNames()
         self.tableView.reloadData()
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return albumNames.count
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0;
-    }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
@@ -52,8 +44,22 @@ class AlbumSelectionController: UITableViewController {
         let numImagesInAlbum: Int = ImageNameRepository.getNumberOfImagesByAlbum(albumName: albumName)
         
         cell.textLabel?.text = albumName + " (" + String(numImagesInAlbum) + ")"
-        cell.imageView?.image = UIImage(named: "default")
         
+        // set the thumbnail image to the first image in album, or default image
+        if (numImagesInAlbum > 0) {
+            let thumbnailImageName: String? = ImageNameRepository.getFirstPhotoInAlbum(albumName: albumName)
+            let thumbnailImage: UIImage
+            if (thumbnailImageName != nil) {
+                thumbnailImage = MediaHandler.loadImageFromDiskWith(fileName: thumbnailImageName!)!
+            } else {
+                thumbnailImage = UIImage(named: "default")!
+            }
+            cell.imageView?.image = thumbnailImage
+        } else {
+            cell.imageView?.image = UIImage(named: "default")
+        }
+        
+        // format image
         let itemSize = CGSize.init(width: 100, height: 100)
         UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);
         let imageRect = CGRect.init(origin: CGPoint.zero, size: itemSize)
@@ -112,5 +118,13 @@ class AlbumSelectionController: UITableViewController {
         }))
         
         self.present(albumNameInputAlert, animated: true, completion: nil)
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return albumNames.count
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0;
     }
 }

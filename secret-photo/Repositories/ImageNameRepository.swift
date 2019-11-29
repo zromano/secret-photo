@@ -123,4 +123,24 @@ class ImageNameRepository {
             return false
         }
     }
+    
+    static func getFirstPhotoInAlbum(albumName: String) -> String? {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ImageName")
+        fetchRequest.predicate = NSPredicate(format: "album == %@", albumName)
+        do {
+            let imageNames = try context.fetch(fetchRequest)
+            if (imageNames.count > 0) {
+                let imageInfo = imageNames[0] as! ImageName
+                return imageInfo.imageUrl
+            } else {
+                return nil
+            }
+        } catch {
+            print("error is \(error)")
+            return nil
+        }
+    }
 }
