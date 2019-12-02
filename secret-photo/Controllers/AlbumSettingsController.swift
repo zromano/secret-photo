@@ -20,7 +20,8 @@ class AlbumSettingsController: UIViewController {
     }
     
     @IBAction func saveAlbumSettingsPressed(_ sender: Any) {
-        if (albumNameTextField.text != "" && albumNameTextField.text == "") {
+        // if blank ablum name:
+        if (albumNameTextField.text == nil || albumNameTextField.text == "") {
             let badNamealert = UIAlertController(title: "Album name cannot be blank!", message: nil, preferredStyle: .alert)
             badNamealert.addAction(UIAlertAction(title: "OK", style: .cancel) { _ in })
             self.present(badNamealert, animated: true)
